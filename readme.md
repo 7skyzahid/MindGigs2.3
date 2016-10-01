@@ -19,6 +19,7 @@ Documentation for the framework can be found on the [Laravel website](http://lar
 Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
 
 ## Security Vulnerabilities
+Lets see the add and commit and push command from the Command line 
 
 If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
 
