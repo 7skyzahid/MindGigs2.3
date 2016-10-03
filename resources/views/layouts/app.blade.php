@@ -43,6 +43,7 @@
                         <a class="btn btn-default" href="{{ url('/scoreboard') }}">Scoreboard</a>
                         <a class="btn btn-default" href="{{ url('/dashboard') }}">Dashboard</a>
                         <a class="btn btn-default" href="{{ url('/blogs') }}">Blogs</a>
+                        <a class="btn btn-default" href="{{ url('/dashboard/create') }}">Job Posting</a>
                         <a class="btn btn-default" href="{{ url('/searchjobs') }}">Jobs Search</a>
 
                     </form>
