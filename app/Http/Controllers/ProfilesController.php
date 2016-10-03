@@ -61,13 +61,6 @@ class ProfilesController extends Controller
             $logprof->profilepic = $file->getClientOriginalName();
         }
 
-
-        if(isset($input['prfileimage'])){
-          $file = Input::file('prfileimage');
-            $file->move(public_path('images'),$file->getClientOriginalName('prfileimage'));
-            $logprof->profilepic = $file->getClientOriginalName();
-        }
-
 		$logprof->save();
 
         $logusr = User::where('name',$authuser)->first();

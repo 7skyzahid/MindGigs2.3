@@ -60,7 +60,7 @@ return [
         'mysql' => [
             'driver' => 'mysql',
             'host'      => 'localhost',
-            'database'  => 'mindgig',
+            'database'  => 'mindgigs',
             'username'  => 'root',
             'password'  => '',
             'charset' => 'utf8',

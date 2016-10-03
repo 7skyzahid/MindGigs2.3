@@ -2,7 +2,7 @@
 
 @section('style')
 @parent
-    <link rel="stylesheet" href="<?php echo asset('css/profile.css')?>" type="text/css">  
+    <link rel="stylesheet" href="<?php echo asset('css/profile.css')?>" type="text/css">
 @endsection
 
 @section('title')
@@ -29,14 +29,14 @@
 
 
             <section class="col-md-3 card-wrapper profile-card-wrapper affix">
-                
+
                 <div class="card profile-card">
                            @if((Auth::check() == true) && (Auth::user()->name == $uprof->username))
                             <a class="btn btn-primary btn-small pull-right" data-toggle="tooltip"
-                            href="/{{$uprof->username}}/editprofile">Edit Profile</a> 
+                            href="/{{$uprof->username}}/editprofile">Edit Profile</a>
                             @endif
                 <div class="row"></div>
-                
+
 
                     <span class="profile-pic-container"></span>
 
@@ -216,13 +216,13 @@
     </div>
     <script async src="http://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js"
     type="text/javascript">
-    </script> 
+    </script>
     <script src=
     "https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js">
-    </script> 
+    </script>
     <script src=
     "https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js">
-    </script> 
+    </script>
     <script>
           $(function () {
            var toggleFloatingMenu = function() {
@@ -250,7 +250,7 @@
                .addClass( 'icon-chevron-down' );
            });
           });
-    </script> 
+    </script>
     <script>
           WebFontConfig = {
            google: { families: [ 'Lato:300,400,700:latin' ] }
@@ -264,7 +264,7 @@
            var s = document.getElementsByTagName('script')[0];
            s.parentNode.insertBefore(wf, s);
           })();
-    </script> 
+    </script>
     <script type="text/javascript">
           /* <![CDATA[ */(function(d,s,a,i,j,r,l,m,t){try{l=d.getElementsByTagName('a');t=d.createElement('textarea');for(i=0;l.length-i;i++){try{a=l[i].href;s=a.indexOf('/cdn-cgi/l/email-protection');m=a.length;if(a&&s>-1&&m>28){j=28+s;s='';if(j<m){r='0x'+a.substr(j,2)|0;for(j+=2;j<m&&a.charAt(j)!='X';j+=2)s+='%'+('0'+('0x'+a.substr(j,2)^r).toString(16)).slice(-2);j++;s=decodeURIComponent(s)+a.substr(j,m-j)}t.innerHTML=s.replace(/<\/g,'&lt;').replace(/>/g,'&gt;');l[i].href='mailto:'+t.value}}catch(e){}}}catch(e){}})(document);/* ]]> */
     </script>
