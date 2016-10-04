@@ -26,9 +26,11 @@ Route::get('/home', function () {
 	});
 
 /*read notes on dashboard.search.blade.php ... then you'll understand following 3 routes*/
-Route::get('searchjobs','DashboardController@searchview');		// page for searching jobs ... like a search engine
+Route::get('searchjobs','DashboardController@searchviews');		// page for searching jobs ... like a search engine
+Route::get('searchjobss','DashboardController@searchview');		// page for searching jobs ... like a search engine
 Route::get('searchjobsint','DashboardController@searchAcInt');	// working... but still have to be integrated with search.blade.php with ajax
 Route::post('searchjobs','DashboardController@jobsearch');
+
 Route::post('searchprofs','DashboardController@profsearch');
 
 //Route::get('temproute','DashboardController@searchAcInt');		// page for searching jobs ... like a search engine
@@ -54,6 +56,7 @@ Route::get('/', function () {
 			return view('welcome');
 		
 });
+//Route::get('/searchjobs','DashboardController@searchj');
 
 Route::get('/scoreboard','ProfilesController@info');			// for profile page .--------- make profile page here
 Route::get('getUpdate','ProfilesController@getUpdate');			// for profile edit experience modal page .---------

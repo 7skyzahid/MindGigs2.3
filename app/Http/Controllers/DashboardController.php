@@ -162,7 +162,7 @@ class DashboardController extends Controller
 
     }
 
-    public function bidaccept(Request $request)
+    public function bidaccepts(Request $request)
     {
         $this->validate($request, [
             'postid' => 'required',
@@ -224,20 +224,38 @@ class DashboardController extends Controller
         //    return $posts;
     }
 
-    public function searchview()
+    public function searchviews()
     {
         if (Auth::check()) {
-            $authuser = Auth::user()->name;
-            $usr = Profile::where('username', $authuser)->first();
-            $searchWords = explode(",", strtolower($usr->keywords));
+
+            return view('dashboard.searchp');
+        } else {
+            return Redirect::to('login');
+        }
+    }
+    public function searchview(Request $request)
+    {
+        if (Auth::check()) {
+            //$authuser = Auth::user()->name;
+            $this->validate($request,[
+                'tosearch' => 'required',
+            ]);
+
+            //$search = $request['tosearch'];
+            //echo $search;exit;
+            $searchWords = explode(",", strtoupper($request['tosearch']));
+
 
             $posts = Projpost::query();
             foreach ($searchWords as $word) {
                 $posts->orWhere('tags', 'LIKE', '%' . $word . '%');
             }
-            $posts = $posts->distinct()->get();
 
-            return view('dashboard.search', compact('posts'));
+            $posts = $posts->distinct()->get();
+            //var_dump($posts);
+
+
+            return view('dashboard.searchp', compact('posts'));
         } else {
             return Redirect::to('login');
         }
@@ -490,11 +508,13 @@ class DashboardController extends Controller
 
 
 
+
             $arrays=$jobs;
         }
        // var_dump($arrays);exit;
         //$arrays=(object)$arrays;
         return view('dashboard.jobs',compact('arrays'));
     }
+
 
 }
