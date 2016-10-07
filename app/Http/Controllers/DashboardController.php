@@ -516,5 +516,38 @@ class DashboardController extends Controller
         return view('dashboard.jobs',compact('arrays'));
     }
 
+    //adding skills
+    public function addSkill(){
+        return view('dashboard.addSkill');
+    }
+
+    public function insertSkill(Request $request){
+
+        $skill = new skills();
+
+        $skill->company = $request->company;
+        $skill->location = $request->location;
+        $skill->country=$request->country;
+        $skill->title=$request->title;
+        $skill->role=$request->role;
+        $skill->fmonth=$request->fmonth;
+        $skill->tomonth=$request->tomonth;
+        $skill->toyear=$request->toyear;
+        $skill->current=$request->current;
+        $skill->description=$request->description;
+        $skill->save();
+        Session::flash('success','The Skill was successfully saved');
+        return redirect('dashboard/viewSkill');
+    }
+
+    public function viewSkill(){
+        //return "OK";
+        $skills = skills::all();
+        return view('dashboard.viewSkill')->withSkills($skills);
+
+
+    }
+
+
 
 }

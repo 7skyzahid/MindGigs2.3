@@ -3,17 +3,10 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
-use App\Profile;
-use App\Affiliate;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
-use Cookie;
-use Illuminate\Http\Response;
-use Illuminate\Http\Request;
-use Illuminate\Cookie\CookieJar;
-
 
 class AuthController extends Controller
 {
@@ -69,17 +62,8 @@ class AuthController extends Controller
      * @param  array  $data
      * @return User
      */
-    protected function create(array $data, Request $req)
+    protected function create(array $data)
     {
-        Affiliate::create([
-            'username' => $data['name'],'affname' => "".$req->cookie('affiliate'),
-        ]);   
-
-
-        Profile::create([
-            'username' => $data['name'],
-        ]);                     
-
         return User::create([
             'firstname' => $data['firstname'],
             'lastname' => $data['lastname'],

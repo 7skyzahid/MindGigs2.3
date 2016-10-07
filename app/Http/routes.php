@@ -24,6 +24,9 @@ Route::get('/home', function () {
 			return Redirect::to('login');
 		}
 	});
+Route::get('/contact',function(){
+    return view('contact');
+});
 
 /*read notes on dashboard.search.blade.php ... then you'll understand following 3 routes*/
 Route::get('searchjobs','DashboardController@searchviews');		// page for searching jobs ... like a search engine
@@ -34,6 +37,12 @@ Route::post('searchjobs','DashboardController@jobsearch');
 Route::post('searchprofs','DashboardController@profsearch');
 
 //Route::get('temproute','DashboardController@searchAcInt');		// page for searching jobs ... like a search engine
+
+//Skill related Routed
+
+Route::get('dashboard/addSkill','ProfilesController@addSkill');
+Route::post('dashboard/insertskill','ProfilesController@insertSkill');
+Route::get('dashboard/viewSkill','ProfilesController@viewSkill');
 
 
 Route::get('dashboard','DashboardController@index');

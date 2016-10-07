@@ -15,7 +15,7 @@ class Skills extends Model
      * @var array
      */
     protected $fillable = [
-        'company', 'location', 'country','title','role','description',
+        'company', 'location', 'country','title','role','fmonth','fyear','tomonth','toyear','current','description',
     ];
 
     public function User() {
