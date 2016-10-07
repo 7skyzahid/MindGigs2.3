@@ -2,6 +2,10 @@
 
 @section('style')
     <link rel="stylesheet" href="<?php echo asset('css/navbar.css')?>" type="text/css">
+
+    <script rel="script" src="{{ URL::asset('assets/scripts/jquery-2.1.3.min.js') }}"></script>
+    <script rel="script" src="{{ URL::asset('assets/scripts/custom.js') }}"></script>
+
 @endsection
 
 

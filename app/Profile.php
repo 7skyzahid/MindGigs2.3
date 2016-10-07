@@ -45,5 +45,8 @@ class Profile extends Model
     public function projposts() {
         return $this->hasMany('Projpost');
     }
+    public function portfilio() {
+        return $this->hasMany('portfilio');
+    }
 
 }

@@ -112,25 +112,53 @@
 								<textarea required class="form-control" name="keywords" rows="5" type="text" id="keywords">{{$uprof->keywords}}</textarea>
 							</div>
 						</div>
-                        <div class="form-group row">
-                            @if(isset($uprof->profilepic))
 
-							<label for="prfileimage" class="col-xs-offset-1 col-xs-2 col-form-label">Profile Image</label>
-							<div class="col-xs-7">
-                                <img src="{{base_path('images/')}}{{$uprof->profilepic}}" name="prfileimage">
-                                @else
-								<input type="file" class="form-control" name="prfileimage" rows="5" type="text" id="prfileimage">
-                                    @endif
-							</div>
-						</div>
 						<div class="form-group row">
 
-							<img src="{{public_path('images/').$uprof->profilepic}}" height="50" width="50"><br>
 							<label for="prfileimage" class="col-xs-offset-1 col-xs-2 col-form-label">Profile Image</label>
 							<div class="col-xs-7">
 								<input type="file" class="form-control" name="prfileimage" rows="5" type="text" id="prfileimage">
 							</div>
 						</div>
+                        <hr>
+                        <!-- Education -->
+
+                        <div class="form with-line">
+                            <h5>Portfilio <span>(optional)</span></h5>
+                            <div class="form-inside">
+
+                                <!-- Add Education -->
+                                <div class="form boxed box-to-clone education-box">
+                                    <a href="#" class="close-form remove-box button"><i class="fa fa-close"></i></a>
+                                    <input class="search-field" name="portfiliotitle" type="text" placeholder="Project Title" value="{{$portfilio->title}}"/>
+                                    <textarea name="description" id="desc" cols="30" rows="10" placeholder="Overview (optional)">{{$portfilio->description}}</textarea>
+                                    <label class="upload-btn">
+                                        <input type="file" multiple="" name="portfilioimage">
+                                        <i class="fa fa-upload"></i> Browse
+                                    </label>
+                                    <span class="fake-input">No file selected</span>
+                                </div>
+                                </div>
+
+                                <a href="" class="button gray add-education add-box"><i class="fa fa-plus-circle"></i> Add More</a>
+                            </div>
+                <div class="form with-line">
+                    <h5>Certificates <span>(optional)</span></h5>
+                    <div class="form-inside">
+
+                        <!-- Add Education -->
+                        <div class="form boxed box-to-clone education-box">
+                            <a href="#" class="close-form remove-box button"><i class="fa fa-close"></i></a>
+                            <input class="search-field" name="certificatename" type="text" placeholder="Certificate Name" value="{{$certificate->title}}"/>
+                            <input class="search-field" name="certificateprovider" type="text" placeholder="Certificate Provider" value="{{$certificate->provider}}"/>
+                            <textarea name="desc" id="desc" cols="30" rows="10" placeholder="Description (optional)">{{$certificate->description}}</textarea>
+
+                        </div>
+                    </div>
+
+                    <a href="" class="button gray add-education add-box"><i class="fa fa-plus-circle"></i> Add More</a>
+                </div>
+            </div>
 
 						<div class="form-group row">
 								<button type="submit" class="col-xs-offset-8 btn btn-primary">Save</button> 
@@ -140,10 +168,10 @@
 
 					</form>
 
+
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
-
 @stop

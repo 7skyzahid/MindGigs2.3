@@ -2,18 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Certificates;
 use App\Educatn;
 use App\Experience;
+use App\portfilio;
 use File;
 use Auth;
 use App\User;
 use App\Profile;
+use Illuminate\Support\Facades\Session;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Support\Facades\Input as Input;
 use Cookie;
+use Sessions;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use Illuminate\Cookie\CookieJar;
@@ -33,14 +37,25 @@ class ProfilesController extends Controller
     {
 		$frame_str="http://localhost:8000/auth/empty";
 		$input = Input::all();
-        //dd($input);
-			
-//		$id = Auth::id();
-//		$usr = User::find($id);
-//		$logprof = new Profile;
-
 		$authuser = Auth::user()->name;
-		//dd(public_path('images'));
+
+		//update portfilio data
+        $portfilio = portfilio::where('username',$authuser)->first();
+        $portfilio->username = $authuser;
+        $portfilio->title = $input['portfiliotitle'];
+        $portfilio->description = $input['description'];
+        if(isset($input['portfilioimage'])){
+            $portfilioImage = Input::file('portfilioimage');
+            $portfilioImage->move(public_path('images'),$portfilioImage->getClientOriginalName('portfilioimage'));
+            $portfilio->image = $portfilioImage->getClientOriginalName();
+        }
+        $portfilio->save();
+        // certificates
+        $certificate = Certificates::where('username',$authuser)->first();
+        $certificate->title = $input['certificatename'];
+        $certificate->description = $input['desc'];
+        $certificate->save();
+        //update profile data
 		$logprof = Profile::where('username',$authuser)->first(); 
 		$logprof->briefdescription = $input['proftitle'];
 		$logprof->address = $input['address'];
@@ -95,9 +110,11 @@ class ProfilesController extends Controller
     	$authuser = Auth::user()->name;
     	if($authuser == $id){
     		$uvar = User::where('name',$id)->first();
+    		$portfilio = portfilio::where('username',$id)->first();
+    		$certificate = Certificates::where('username',$id)->first();
     		$uprof = Profile::where('username',$uvar->name)->first();
             $user = User::where('name',$uvar->name)->first();
-    		return view('p.showep',compact('uprof','user'));
+    		return view('p.showep',compact('uprof','user','portfilio','certificate'));
     	}
     	else {
     		return 'Sorry mate... edit your own profile!';
@@ -124,6 +141,7 @@ class ProfilesController extends Controller
         $whereUser->to = $postInput['dateto'];
         $whereUser->description = $postInput['description'];
         $whereUser->save();
+        Session::flash('message','Experience has been successfully added');
         $userExperience = Experience::where('username',$userName)->get();
         return redirect('profile')->with('experienceData',$userExperience);
 
@@ -133,9 +151,13 @@ class ProfilesController extends Controller
         $userName = Auth::user()->name;
 
         $userExperience = Experience::where('username',$userName)->get();
+        $portfilio = portfilio::where('username',$userName)->get();
         $education = Educatn::where('username',$userName)->get();
+        $certificate = Certificates::where('username',$userName)->get();
         return view('profile')->with('experienceData',$userExperience)
-                              ->with('educationData',$education);
+                              ->with('educationData',$education)
+                                ->with('certificateData',$certificate)
+                                ->with('portfilioData',$portfilio);
     }
     public function deleteExperience($id){
 
@@ -171,7 +193,8 @@ class ProfilesController extends Controller
                 'to'=> $request->dateto,
                 'description'=> $request->description,
            ]);
-        return redirect('profile')->with('Message','Experience Has Been Update Successfully');
+            Session::flash('message','Experience has been successfully updated');
+        return redirect('profile');
     }
 
     }
@@ -190,7 +213,8 @@ class ProfilesController extends Controller
             $education->to = $request->dateto;
             $education->description = $request->description;
             $education->save();
-            return redirect('profile')->with('Message','Education has been Created');
+            Session::flash('message','Education has been successfully added');
+            return redirect('profile');
         }
     }
     public function geteduaction(Request $request){
@@ -213,7 +237,8 @@ class ProfilesController extends Controller
                     'to'=> $request->dateto,
                     'description'=> $request->description,
                 ]);
-            return redirect('profile')->with('Message','Education Has Been Updated Successfully');
+            Session::flash('message','Education has been successfully updated');
+            return redirect('profile');
         }
 
     }
@@ -224,11 +249,109 @@ class ProfilesController extends Controller
             $education->delete();
         }
         $userName = Auth::user()->name;
-        $userExperience = Experience::where('username',$userName)->get();
+        //$userExperience = Experience::where('username',$userName)->get();
         $userExperience = Experience::where('username',$userName)->get();
         $educationdata = Educatn::where('username',$userName)->get();
         return redirect('profile')->with('experienceData',$userExperience)
             ->with('educationData',$educationdata);
+    }
+    //adding Certificates
+    public function addcertificate(Request $request){
+        if(isset($request) && !empty($request)){
+            $certificate = new Certificates();
+            $userName = Auth::user()->name;
+            $certificate->username = $userName;
+            $certificate->title = $request->certifcatetitle;
+            $certificate->description = $request->certifcatedesc;
+            $certificate->save();
+            Session::flash('message','Certificate has been successfully added');
+            return redirect('profile');
+        }
+    }
+    //getting records for updation
+    public function getcertificate(Request $request){
+        if($request->ajax()){
+
+            $certificate = Certificates::where('id',$request->id)->first();
+
+            return Response($certificate);
+        }
+    }
+    public function updatecertificate(Request $request){
+        if(isset($request) && !empty($request)){
+              //  dd($request->id);
+            $certificate = Certificates::where('id',$request->id)
+                ->update([
+                    'title'=> $request->certifcatetitle,
+                    'description'=> $request->certifcatedesc,
+                ]);
+            Session::flash('message','Certificate has been successfully updated');
+            return redirect('profile');
+        }
+
+    }
+    public function deletecertificate($id){
+        $certificate = Certificates::find($id);
+        if($certificate){
+            $certificate->delete();
+        }
+        $userName = Auth::user()->name;
+        Session::flash('message','Certificate has been successfully deleted');
+        //$userExperience = Experience::where('username',$userName)->get();
+        $userExperience = Experience::where('username',$userName)->get();
+        $educationdata = Educatn::where('username',$userName)->get();
+        $certificate = Certificates::where('username',$userName)->get();
+        return redirect('profile')->with('experienceData',$userExperience)
+            ->with('educationData',$educationdata)->with('certificateData',$certificate);
+    }
+    //Actions for Portfilio
+    public function addportfilio(Request $request){
+        if(isset($request) && !empty($request)){
+            $input = Input::all();
+            $portfilio = new portfilio();
+            $userName = Auth::user()->name;
+            $portfilio->username = $userName;
+            $portfilio->title = $request->projectName;
+            $portfilio->description = $request->description;
+            $portfilio->save();
+            Session::flash('message','Certificate has been successfully Added');
+            return redirect('profile');
+        }
+    }
+    public function getportfilio(Request $request){
+        if($request->ajax()){
+
+            $portfilio = portfilio::where('id',$request->id)->first();
+
+            return Response($portfilio);
+        }
+    }
+    public function updateportfilio(Request $request){
+        if(isset($request) && !empty($request)){
+             // dd($request->portfilioId);
+            $portfilio = portfilio::where('id',$request->id)
+                ->update([
+                    'title'=> $request->projectName,
+                    'description'=> $request->description,
+                ]);
+            Session::flash('message','Portfilio has been successfully updated');
+            return redirect('profile');
+        }
+
+    }
+    public function deleteportfilio($id){
+        $portfilio = portfilio::find($id);
+        if($portfilio){
+            $portfilio->delete();
+        }
+        $userName = Auth::user()->name;
+        Session::flash('message','Portfilio has been successfully deleted');
+        //$userExperience = Experience::where('username',$userName)->get();
+        $userExperience = Experience::where('username',$userName)->get();
+        $educationdata = Educatn::where('username',$userName)->get();
+        $certificate = Certificates::where('username',$userName)->get();
+        return redirect('profile')->with('experienceData',$userExperience)
+            ->with('educationData',$educationdata)->with('certificateData',$certificate);
     }
 
 }

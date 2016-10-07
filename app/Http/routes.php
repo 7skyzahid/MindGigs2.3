@@ -45,6 +45,17 @@ Route::delete('dashboard/{id}','DashboardController@destroy');	// for deleting l
 Route::post('jobpost','DashboardController@bidpost');	// for 
 Route::post('jobbid','DashboardController@bidaccept');	
 
+//Routes for Certificates
+Route::post('addcertificate','ProfilesController@addcertificate');
+Route::get('getcertificate','ProfilesController@getcertificate');
+Route::post('updatecertificate/{id}','ProfilesController@updatecertificate');
+Route::get('deletecertificate/{id}','ProfilesController@deletecertificate');
+//Routes for Portfilio
+Route::post('addportfilio','ProfilesController@addportfilio');
+Route::get('getportfilio','ProfilesController@getportfilio');
+Route::post('updateportfilio/{id}','ProfilesController@updateportfilio');
+Route::get('deleteportfilio/{id}','ProfilesController@deleteportfilio');
+
 //Route::get('/p','ProfilesController@index');
 //Route::post('/p', 'ProfilesController@create');		// for posting data of edited profile
 
