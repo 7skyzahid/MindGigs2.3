@@ -468,36 +468,39 @@
                         <div class="info">
 
                             <h4 class="title text-uppercase">Certificates</h4>
-                            <a href="" id="addExperience" class="glyphicon glyphicon-plus" data-toggle="modal"
+                            <a href="" id="addCertificate" class="glyphicon glyphicon-plus" data-toggle="modal"
                                data-target="#certificateModel">ADD Certificate</a>
                             @if(isset($certificateData))
                                 @foreach($certificateData as $certificate)
-                            <div class="content">
-                                <ul class="list-unstyled clear-margin">
-                                    <li class="card card-nested">
-                                        <div class="content">
-                                            <p class="clear-margin relative"><strong>{{$certificate->title}},</strong>
-                                                <a href=  "http://www.twincon.com.pk/" target="_blank">Provider</a>
-                                            </p>
+                                    <div class="content">
+                                        <ul class="list-unstyled clear-margin">
+                                            <li class="card card-nested">
+                                                <div class="content">
+                                                    <p class="clear-margin relative"><strong>{{$certificate->title}}
+                                                            ,</strong>
+                                                        <a href="http://www.twincon.com.pk/"
+                                                           target="_blank">Provider</a>
+                                                    </p>
 
 
-                                            <p class="text-muted">
-                                                <small>{{$certificate->created_at}}</small>
-                                            </p>
+                                                    <p class="text-muted">
+                                                        <small>{{$certificate->created_at}}</small>
+                                                    </p>
 
 
-                                            <div class="mop-wrapper">
-                                                <p>{{$certificate->description}} </p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <a id="editcertificate" data-id="{{$certificate->id}}"
-                                       class="glyphicon glyphicon-pencil" data-toggle="modal"
-                                       data-target="#certificateModel">Edit</a>
-                                    <a href="deletecertificate/{{$certificate->id}}" data-id="{{$certificate->id}}"
-                                       class="glyphicon glyphicon-remove">Delete</a>
-                                </ul>
-                            </div>
+                                                    <div class="mop-wrapper">
+                                                        <p>{{$certificate->description}} </p>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <a id="editcertificate" data-id="{{$certificate->id}}"
+                                               class="glyphicon glyphicon-pencil" data-toggle="modal"
+                                               data-target="#certificateModel">Edit</a>
+                                            <a href="deletecertificate/{{$certificate->id}}"
+                                               data-id="{{$certificate->id}}"
+                                               class="glyphicon glyphicon-remove">Delete</a>
+                                        </ul>
+                                    </div>
                                 @endforeach
                             @endif
 
@@ -520,8 +523,8 @@
                                     <li class="card card-nested">
                                         <span class="label label-keyword">English</span>
                                         <span class="label label-keyword">Japanese</span><span
-                                                class=                                                "label label-keyword">German</span><span class=""></span>
-                                                                                         </li>
+                                                class="label label-keyword">German</span><span class=""></span>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -577,7 +580,7 @@
                 <h4 class="modal-title">Add Experience</h4>
 
             </div>
-            <div class="modal-body">                      editportfilio
+            <div class="modal-body"> editportfilio
                 <form class="form-horizontal" name="experienceForm" id="experienceForm" method="post"
                       action="addexperience">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -739,14 +742,14 @@
                         <div class="col-sm-10">
                             <input type="file" class="form-control" name="portfilioimage" id="portfilioimage"/>
                             <div id='imagePopup' style='display:none'>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="form-group">
-                        <div class="col-sm-offset-2 col-sm-10">
-                            <button type="submit" id="addportfilio" class="btn btn-info">Add Portfilio</button>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" id="addportfilio" class="btn btn-info">Add Portfilio</button>
+                            </div>
                         </div>
-                    </div>
                 </form>
             </div>
             <div class="modal-footer">
@@ -799,7 +802,7 @@
                             <button type="submit" id="certificate" class="btn btn-info">Add Certificate</button>
                         </div>
                     </div>
-                    <input type="text" name="certificateId" id="hiddenid"  class="hidden">
+                    <input type="text" name="certificateId" id="hiddenid" class="hidden">
                 </form>
             </div>
             <div class="modal-footer">
@@ -941,7 +944,7 @@
                 $('#portfilioId').val(data.id);
                 $('#projectName').val(data.title);
                 $('#descriptionportfilio').val(data.description);
-                $("#imagePopup").html("<img src='public/"+data.image+"'/>");
+                $("#imagePopup").html("<img src='public/" + data.image + "'/>");
                 $('#imagePopup').show();
 
             }

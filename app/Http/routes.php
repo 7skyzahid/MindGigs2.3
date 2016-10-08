@@ -24,7 +24,29 @@ Route::get('/home', function () {
 			return Redirect::to('login');
 		}
 	});
+Route::group(array('middleware' => 'auth'), function()
+{
 
+	//Routes for Portfilio
+	Route::post('addportfilio','ProfilesController@addportfilio');
+	Route::get('getportfilio','ProfilesController@getportfilio');
+	Route::post('updateportfilio/{id}','ProfilesController@updateportfilio');
+	Route::get('deleteportfilio/{id}','ProfilesController@deleteportfilio');
+//Routes for Certificates
+	Route::post('addcertificate','ProfilesController@addcertificate');
+	Route::get('getcertificate','ProfilesController@getcertificate');
+	Route::post('updatecertificate/{id}','ProfilesController@updatecertificate');
+	Route::get('deletecertificate/{id}','ProfilesController@deletecertificate');
+	Route::get('getUpdate','ProfilesController@getUpdate');			// for profile edit experience modal page .---------
+	Route::post('updaterecord/{id}','ProfilesController@updateExperience');			// for profile edit experience modal page .---------
+    /*
+ * education Section Routes and action
+ * **************************************************************************************************/
+    Route::post('addeducation/', 'ProfilesController@addeducation');
+    Route::get('geteduaction','ProfilesController@geteduaction');
+    Route::post('updateeducation/{id}','ProfilesController@updateeducation');
+    Route::get('deleteeducation/{id}','ProfilesController@deleteeducation');
+});
 /*read notes on dashboard.search.blade.php ... then you'll understand following 3 routes*/
 Route::get('searchjobs','DashboardController@searchview');		// page for searching jobs ... like a search engine
 Route::get('searchjobsint','DashboardController@searchAcInt');	// working... but still have to be integrated with search.blade.php with ajax
@@ -45,16 +67,8 @@ Route::delete('dashboard/{id}','DashboardController@destroy');	// for deleting l
 Route::post('jobpost','DashboardController@bidpost');	// for 
 Route::post('jobbid','DashboardController@bidaccept');	
 
-//Routes for Certificates
-Route::post('addcertificate','ProfilesController@addcertificate');
-Route::get('getcertificate','ProfilesController@getcertificate');
-Route::post('updatecertificate/{id}','ProfilesController@updatecertificate');
-Route::get('deletecertificate/{id}','ProfilesController@deletecertificate');
-//Routes for Portfilio
-Route::post('addportfilio','ProfilesController@addportfilio');
-Route::get('getportfilio','ProfilesController@getportfilio');
-Route::post('updateportfilio/{id}','ProfilesController@updateportfilio');
-Route::get('deleteportfilio/{id}','ProfilesController@deleteportfilio');
+
+
 
 //Route::get('/p','ProfilesController@index');
 //Route::post('/p', 'ProfilesController@create');		// for posting data of edited profile
@@ -67,21 +81,14 @@ Route::get('/', function () {
 });
 
 Route::get('/scoreboard','ProfilesController@info');			// for profile page .--------- make profile page here
-Route::get('getUpdate','ProfilesController@getUpdate');			// for profile edit experience modal page .---------
-Route::post('updaterecord/{id}','ProfilesController@updateExperience');			// for profile edit experience modal page .---------
+
 
 Route::get('/profile',[
     'uses' => 'ProfilesController@showExperience',
     'as' => 'profile',
     'middleware' => 'auth'
 ]);
-/*
- * education Section Routes and action
- * **************************************************************************************************/
-Route::post('addeducation/', 'ProfilesController@addeducation');
-Route::get('geteduaction','ProfilesController@geteduaction');
-Route::post('updateeducation/{id}','ProfilesController@updateeducation');
-Route::get('deleteeducation/{id}','ProfilesController@deleteeducation');
+
 
 
 Route::get('blogs','BlogsController@index');
@@ -110,10 +117,11 @@ Route::get('/editprofile', function () {
 */
 Route::auth();
 
+
 Route::get('{id}','ProfilesController@show');			// for profile page .--------- make profile page here
-Route::post('addexperience','ProfilesController@addExperience');			// for profile page .--------- make profile page here
-Route::get('{id}/editprofile','ProfilesController@showep');		// for editing profile page ------ make edit profile here
-Route::get('deleteexperience/{id}','ProfilesController@deleteExperience');		// for deleting experience profile page ------ make edit profile here
+Route::post('addexperience','ProfilesController@addExperience')->middleware('auth');			// for profile page .--------- make profile page here
+Route::get('{id}/editprofile','ProfilesController@showep')->middleware('auth');		// for editing profile page ------ make edit profile here
+Route::get('deleteexperience/{id}','ProfilesController@deleteExperience')->middleware('auth');		// for deleting experience profile page ------ make edit profile here
 
 Route::post('{id}', 'ProfilesController@create');		// for posting data of edited profile
 
