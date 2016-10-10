@@ -31,10 +31,12 @@
             <section class="col-md-3 card-wrapper profile-card-wrapper affix">
 
                 <div class="card profile-card">
+                            @if(isset($uprof) && !empty($uprof))
                            @if((Auth::check() == true) && (Auth::user()->name == $uprof->username))
                             <a class="btn btn-primary btn-small pull-right" data-toggle="tooltip"
                             href="/{{$uprof->username}}/editprofile">Edit Profile</a>
                             @endif
+                    @endif
                 <div class="row"></div>
 
 
@@ -42,7 +44,7 @@
 
                     <div class="profile-pic">
                                   <span class="profile-pic-container"><img alt="{{$uvar->firstname}} {{$uvar->lastname}}" class="media-object img-circle center-block"
-                        itemprop="image" src="images/{{$uprof->profilepic}}"></span>
+                        itemprop="image" src="images/{{isset($uprof->profilepic)}}"></span>
                     </div>
 
 
@@ -54,7 +56,7 @@
 
 
                         <h5 class="text-muted" itemprop="jobTitle"><span class=
-                        "profile-pic-container">{{$uprof->briefdescription}}</span>
+                        "profile-pic-container">{{isset($uprof->briefdescription)}}</span>
                         </h5>
                     </div>
 
@@ -64,7 +66,7 @@
                     <div class="contact-details clearfix">
                         <div class="detail">
                             <span class="icon"><i class=
-                            "icon fs-lg icon-location"></i></span><span class="info">{{$uprof->address}},{{$uprof->city}},{{$uprof->country}}</span>
+                            "icon fs-lg icon-location"></i></span><span class="info">{{isset($uprof->address)}},{{isset($uprof->city)}},{{isset($uprof->country)}}</span>
                         </div>
 
 
@@ -81,7 +83,7 @@
                             "link" href="mailto:{{$uvar->email}}" itemprop=
                             "email">{{$uvar->email}}</a></span>
                         </div>
-                      @if($uprof->website != "")
+                      @if(isset($uprof->website) && $uprof->website!= "")
                         <div class="detail">
                             <span class="icon"><i class=
                             "icon fs-lg icon-link"></i></span><span class="info"><a href=
@@ -89,7 +91,7 @@
                             "_blank">{{$uprof->website}}</a></span>
                         </div>
                       @endif
-                      @if($uprof->gitlink != "")
+                      @if(isset($uprof->gitlink) && $uprof->gitlink!= "")
                         <div class="detail">
                             <span class="icon"><i class=
                             "icon fs-lg icon-link"></i></span><span class="info"><a href=
@@ -97,7 +99,7 @@
                             "_blank">{{$uprof->gitlink}}</a></span>
                         </div>
                       @endif
-                      @if ($uprof->languages != "")
+                      @if (isset($uprof->languages) && $uprof->languages != "")
                         <div class="detail">
                             <span class="icon" title="Languages I speak"><i class=
                             "icon fs-lg icon-language"></i></span><span class="info">{{$uprof->languages}}</span>
@@ -107,7 +109,7 @@
 
                     <hr>
 
-                    @if (!(($uprof->fblink == "") && ($uprof->twitlink == "") && ($uprof->lilink == "")))
+                    @if (isset($uprof->fblink) && !(($uprof->fblink == "") && ($uprof->twitlink == "") && ($uprof->lilink == "")))
 
                     <div class="social-links text-center">
                         <div>
@@ -156,7 +158,7 @@
 
                                 <div class="card card-nested">
                                     <div class="content mop-wrapper" itemprop="description">
-                                        <p>{{$uprof->about}}</p>
+                                        <p>{{isset($uprof->about)}}</p>
                                     </div>
                                 </div>
                             </div>
@@ -177,9 +179,11 @@
                                 <div class="content">
                                     <ul class="list-unstyled clear-margin">
                                         <li class="card card-nested">
+                                           @if(isset($uprof->interests))
                                             @foreach (explode(', ', $uprof->interests) as $interest)
                                                 <span class="label label-keyword">{{$interest}}</span>
                                             @endforeach
+                                               @endif
                                         </li>
                                     </ul>
                                 </div>
@@ -200,9 +204,11 @@
                                 <div class="content">
                                     <ul class="list-unstyled clear-margin">
                                         <li class="card card-nested">
+                                            @if(isset($uprof->keywords))
                                             @foreach (explode(', ', $uprof->keywords) as $keyword)
                                                 <span class="label label-keyword">{{$keyword}}</span>
                                             @endforeach
+                                                @endif
                                        </li>
                                     </ul>
                                 </div>

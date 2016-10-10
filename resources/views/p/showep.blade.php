@@ -121,44 +121,6 @@
 							</div>
 						</div>
                         <hr>
-                        <!-- Education -->
-
-                        <div class="form with-line">
-                            <h5>Portfilio <span>(optional)</span></h5>
-                            <div class="form-inside">
-
-                                <!-- Add Education -->
-                                <div class="form boxed box-to-clone education-box">
-                                    <a href="#" class="close-form remove-box button"><i class="fa fa-close"></i></a>
-                                    <input class="search-field" name="portfiliotitle" type="text" placeholder="Project Title" value="{{$portfilio->title}}"/>
-                                    <textarea name="description" id="desc" cols="30" rows="10" placeholder="Overview (optional)">{{$portfilio->description}}</textarea>
-                                    <label class="upload-btn">
-                                        <input type="file" multiple="" name="portfilioimage">
-                                        <i class="fa fa-upload"></i> Browse
-                                    </label>
-                                    <span class="fake-input">No file selected</span>
-                                </div>
-                                </div>
-
-                                <a href="" class="button gray add-education add-box"><i class="fa fa-plus-circle"></i> Add More</a>
-                            </div>
-                <div class="form with-line">
-                    <h5>Certificates <span>(optional)</span></h5>
-                    <div class="form-inside">
-
-                        <!-- Add Education -->
-                        <div class="form boxed box-to-clone education-box">
-                            <a href="#" class="close-form remove-box button"><i class="fa fa-close"></i></a>
-                            <input class="search-field" name="certificatename" type="text" placeholder="Certificate Name" value="{{$certificate->title}}"/>
-                            <input class="search-field" name="certificateprovider" type="text" placeholder="Certificate Provider" value="{{$certificate->provider}}"/>
-                            <textarea name="desc" id="desc" cols="30" rows="10" placeholder="Description (optional)">{{$certificate->description}}</textarea>
-
-                        </div>
-                    </div>
-
-                    <a href="" class="button gray add-education add-box"><i class="fa fa-plus-circle"></i> Add More</a>
-                </div>
-            </div>
 
 						<div class="form-group row">
 								<button type="submit" class="col-xs-offset-8 btn btn-primary">Save</button> 

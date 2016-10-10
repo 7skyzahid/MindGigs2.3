@@ -39,22 +39,7 @@ class ProfilesController extends Controller
 		$input = Input::all();
 		$authuser = Auth::user()->name;
 
-		//update portfilio data
-        $portfilio = portfilio::where('username',$authuser)->first();
-        $portfilio->username = $authuser;
-        $portfilio->title = $input['portfiliotitle'];
-        $portfilio->description = $input['description'];
-        if(isset($input['portfilioimage'])){
-            $portfilioImage = Input::file('portfilioimage');
-            $portfilioImage->move(public_path('images'),$portfilioImage->getClientOriginalName('portfilioimage'));
-            $portfilio->image = $portfilioImage->getClientOriginalName();
-        }
-        $portfilio->save();
-        // certificates
-        $certificate = Certificates::where('username',$authuser)->first();
-        $certificate->title = $input['certificatename'];
-        $certificate->description = $input['desc'];
-        $certificate->save();
+
         //update profile data
 		$logprof = Profile::where('username',$authuser)->first(); 
 		$logprof->briefdescription = $input['proftitle'];
@@ -90,6 +75,7 @@ class ProfilesController extends Controller
     	$uvar = User::where('name',$id)->first();
 
     	$uprof = Profile::where('username',$uvar->name)->first();
+        //dd($id);
     	if (($uprof != null) && (!Auth::check())){
             $cookieval =  $request->cookie('affiliate');
             if ($cookieval == null) {
