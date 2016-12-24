@@ -27,6 +27,7 @@ Route::get('/home', function () {
 Route::get('/contact',function(){
     return view('contact');
 });
+//Tesing the comments 
 
 /*read notes on dashboard.search.blade.php ... then you'll understand following 3 routes*/
 Route::get('searchjobs','DashboardController@searchviews');		// page for searching jobs ... like a search engine
